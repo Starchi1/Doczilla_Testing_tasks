@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Файлообменник</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>📁 Файлообменник</h1>
+        <p>Загрузите файл и получите ссылку</p>
+    </header>
+
+    <main>
+        <div class="upload-box" id="uploadBox">
+            <div class="upload-icon">↑</div>
+            <p>Перетащите файл сюда</p>
+            <p class="or">или</p>
+            <button class="btn" id="selectBtn">Выбрать файл</button>
+            <input type="file" id="fileInput" style="display: none;">
+        </div>
+
+        <div id="progress" class="hidden">
+            <div class="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <p id="progress-text"></p>
+        </div>
+
+        <div id="result" class="hidden">
+            <h3>✓ Файл загружен</h3>
+            <div class="link-box">
+                <input type="text" id="link" readonly>
+                <button id="copyBtn">Копировать</button>
+            </div>
+            <div class="file-info">
+                <p>Файл: <span id="fileName"></span></p>
+                <p>Размер: <span id="fileSize"></span></p>
+                <p>Действует: <span id="expiryTime"></span></p>
+            </div>
+            <button id="newBtn" class="btn">Загрузить ещё</button>
+        </div>
+
+        <div class="files-section">
+            <h3>Ваши файлы</h3>
+            <div id="filesList"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Файлы удаляются через 30 дней без скачивания</p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
