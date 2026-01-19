@@ -1,12 +1,36 @@
 version: '3.8'
+
 services:
   redis:
     image: redis:7-alpine
+    container_name: weather-redis
     ports:
       - "6379:6379"
     volumes:
-      - redis-data:/data
+      - redis_data:/data
     command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  weather-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - MAVEN_OPTS=-Dmaven.wagon.http.retryHandler.count=3
+    container_name: weather-spring-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: "6379"
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
-  redis-data:
+  redis_data:
